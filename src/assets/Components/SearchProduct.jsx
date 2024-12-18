@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import ComboCategories from "./ComboCategories.jsx";
 import ComboAvailability from "./ComboAvailability.jsx";
 
-export default function  CreateProduct(){
+export default function  SearchProduct(){
     return(
         <Box
         sx={{

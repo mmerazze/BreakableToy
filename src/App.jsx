@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import * as React from 'react';
 import './App.css'
-import CreateProduct from "./assets/Components/CreateProduct.jsx"
+import SearchProduct from "./assets/Components/SearchProduct.jsx"
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [name, setName] = useState("")
 
   return (
     <>
     <h1 className ="title"> Products Manager</h1>
       <div>
-        <CreateProduct />
+        <SearchProduct />
       </div>
 
     </>
