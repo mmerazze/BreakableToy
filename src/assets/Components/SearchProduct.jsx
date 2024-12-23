@@ -1,9 +1,11 @@
 import * as React from 'react';
+import "./styles.css"
 import Box from '@mui/material/Box';
 import ComboCategories from "./ComboCategories.jsx";
 import ComboAvailability from "./ComboAvailability.jsx";
 
 export default function  SearchProduct(){
+
     return(
         <Box
         sx={{
@@ -21,6 +23,7 @@ export default function  SearchProduct(){
             <ComboCategories />
             <br/>
             <ComboAvailability />
+            <button className="searchButton" > Search </button>
          </Box>
     )
 }
