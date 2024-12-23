@@ -2,3 +2,11 @@
     font-size: 20px;
     border: 1px cadet blue;
 }
+.ReactModal__Overlay {
+  background-color: solid white;
+}
+.ReactModal__Content {
+  padding: 20px;
+  max-width: 500px;
+  width: 100%;
+}

@@ -7,21 +7,26 @@ import ComboAvailability from "./ComboAvailability.jsx";
 export default function  SearchProduct(){
     return(
         <Box
+         display="grid"
+         justifyContent="center"
+         alignItems="center"
         sx={{
             p: 2,
-            border: '2px solid black', // Set the border to be 2px solid black
-            width: '900px' // Set the width to 700 pixels
+            border: '2px solid black',
+            width: '900px'
         }}
         >
-              <p className="p">Name:
+              <label >Name:
               <input type="text"
                      placeholder="Enter name"
                      className = "input"
               />
-            </p>
-            <ComboCategories />
+            </label>
             <br/>
-            <ComboAvailability />
+            <label>Category: <ComboCategories /> </label>
+            <br/>
+            <label>Availability: <ComboAvailability /> </label>
+            <br/>
             <button className="searchButton" > Search </button>
          </Box>
     )

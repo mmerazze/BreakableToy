@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import ModifyModal from "./ModifyProductModal.jsx";
+import ComboModify from "./ComboModify.jsx";
 
 export default function ProductTable() {
     const [rows, setRows] = useState([]); // State to hold the fetched product data
     const [loading, setLoading] = useState(true);
+
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
         { field: 'name', headerName: 'Name', width: 90 },
@@ -22,11 +25,12 @@ export default function ProductTable() {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => handleModify(params.row)}
+                    onClick={openModal}
                     style={{ marginRight: '5px' }}
                   >
                     Modify
                   </Button>
+                  <ModifyModal isOpen={isModalOpen} onRequestClose={closeModal}/>
                   <Button
                     variant="contained"
                     color="secondary"
@@ -64,15 +68,27 @@ export default function ProductTable() {
         fetchProducts();
       }, []);
 
-    const handleModify = (row) => {
-      console.log('Modify:', row);
-      // Implement your modify logic here
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
     };
 
     // Handle delete action
     const handleDelete = (id) => {
       console.log('Delete ID:', id);
       // Implement your delete logic here
+      const formattedString = "http://localhost:8080/deleteProduct/${id}";
+      const peticion = fetch(formattedString,{
+              method: 'POST',
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify()
+              });
+      alert("Producto borrado");
       // For example, you could filter out the deleted row from the state
       setRows((prevRows) => prevRows.filter((row) => row.id !== id));
     };
@@ -81,7 +97,7 @@ export default function ProductTable() {
       <DataGrid
         rows={rows}
         columns={columns}
-        loading={loading} // Show loading state while fetching
+        loading={loading}
         checkboxSelection
         sx={{ border: 0 }}
       />
