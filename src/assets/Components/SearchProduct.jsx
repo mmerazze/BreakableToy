@@ -5,7 +5,6 @@ import ComboCategories from "./ComboCategories.jsx";
 import ComboAvailability from "./ComboAvailability.jsx";
 
 export default function  SearchProduct(){
-
     return(
         <Box
         sx={{
