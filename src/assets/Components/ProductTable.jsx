@@ -30,7 +30,7 @@ export default function ProductTable() {
                   >
                     Modify
                   </Button>
-                  <ModifyModal isOpen={isModalOpen} onRequestClose={closeModal}/>
+                  <ModifyModal isOpen={isModalOpen} onRequestClose={closeModal} />
                   <Button
                     variant="contained"
                     color="secondary"

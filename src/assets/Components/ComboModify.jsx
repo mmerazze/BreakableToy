@@ -6,9 +6,10 @@ const options = [
   { title: 'Name' },
   { title: 'Category' },
   { title: 'Price' },
-  { title: 'Stock'}
+  { title: 'Stock'},
+  { title: 'Expiration Date'}
 ];
-export default function ComboModify({ selectedOption, onOptionChange }) {
+export default function ComboModify({ selectedOption, onOptionChange}) {
     const handleChange = (event, newValue) => {
         onOptionChange(newValue); // Call the callback to update the selected option in the parent
       };
