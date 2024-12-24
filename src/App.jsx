@@ -4,6 +4,7 @@ import './App.css';
 import SearchProduct from "./assets/Components/SearchProduct.jsx";
 import ProductTable from "./assets/Components/ProductTable.jsx";
 import ProductModal from "./assets/Components/CreateProductModal.jsx";
+import Metrics from "./assets/Components/Metrics.jsx";
 
 function App() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,6 +28,9 @@ function App() {
         <br/>
         <br/>
         <ProductTable />
+        <br/>
+        <br/>
+        <Metrics />
       </div>
     </>
   )

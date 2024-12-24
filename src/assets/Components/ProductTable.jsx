@@ -34,7 +34,7 @@ export default function ProductTable() {
                   <Button
                     variant="contained"
                     color="secondary"
-                    onClick={() => handleDelete(params.row.id)}
+                    onClick={() => handleDelete(0)}
                   >
                     Delete
                   </Button>
@@ -78,19 +78,8 @@ export default function ProductTable() {
         setIsModalOpen(false);
     };
 
-    // Handle delete action
     const handleDelete = (id) => {
-      console.log('Delete ID:', id);
-      // Implement your delete logic here
-      const formattedString = "http://localhost:8080/deleteProduct/${id}";
-      const peticion = fetch(formattedString,{
-              method: 'POST',
-              headers: {"Content-Type": "application/json"},
-              body: JSON.stringify()
-              });
-      alert("Producto borrado");
-      // For example, you could filter out the deleted row from the state
-      setRows((prevRows) => prevRows.filter((row) => row.id !== id));
+
     };
   return (
     <Paper sx={{ height: 400, width: '100%' }}>
