@@ -11,14 +11,14 @@ const options = [
 ];
 export default function ComboModify({ selectedOption, onOptionChange}) {
     const handleChange = (event, newValue) => {
-        onOptionChange(newValue); // Call the callback to update the selected option in the parent
+        onOptionChange(newValue);
       };
 
   return (
     <div>
           <Autocomplete
             options={options}
-            getOptionLabel={(option) => option.title} // Customize this based on your data structure
+            getOptionLabel={(option) => option.title}
             onChange={handleChange}
             renderInput={(params) => <TextField {...params} label="Modify" />}
           />

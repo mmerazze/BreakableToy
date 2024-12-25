@@ -3,7 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 
 export default function Metrics() {
-    const [rows, setRows] = useState([]); // State to hold the fetched product data
+    const [rows, setRows] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const columns = [
@@ -14,25 +14,25 @@ export default function Metrics() {
     ];
 
     const fetchProducts = async () => {
-        setLoading(true); // Set loading to true before fetching
+        setLoading(true);
         try {
             const response = await fetch('http://localhost:8080/products/getMetrics');
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            const data = await response.json(); // Await the JSON parsing
+            const data = await response.json();
             const formattedData = data.map(categoryMetric => ({
-                id: categoryMetric.category, // Add a unique id for each row
+                id: categoryMetric.category,
                 category: categoryMetric.category,
                 totalStock: categoryMetric.totalStock,
                 totalValue: categoryMetric.totalValue,
                 averagePrice: categoryMetric.averagePrice,
             }));
-            setRows(formattedData); // Set the fetched data to rows
+            setRows(formattedData);
         } catch (error) {
             console.error('Error fetching products:', error);
         } finally {
-            setLoading(false); // Set loading to false after fetching
+            setLoading(false);
         }
     };
 

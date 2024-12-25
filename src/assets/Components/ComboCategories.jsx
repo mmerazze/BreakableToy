@@ -13,11 +13,11 @@ export default function ComboCategories() {
               throw new Error('Network response was not ok');
             }
             const data = await response.json();
-            setRows(data); // Set the fetched data to rows
+            setRows(data);
           } catch (error) {
             console.error('Error fetching products:', error);
           } finally {
-            setLoading(false); // Set loading to false after fetching
+            setLoading(false);
           }
         };
         useEffect(() => {

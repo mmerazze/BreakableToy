@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import "./styles.css";
 
-Modal.setAppElement('#root'); // Set the app element for accessibility
+Modal.setAppElement('#root');
 
 const ProductModal = ({ isOpen, onRequestClose }) => {
   const [productName, setProductName] = useState('');
@@ -10,7 +10,6 @@ const ProductModal = ({ isOpen, onRequestClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle product creation logic here
     let campos ={};
     campos.name = document.getElementById("name").value;
     campos.category = document.getElementById("category").value;
@@ -24,7 +23,7 @@ const ProductModal = ({ isOpen, onRequestClose }) => {
         });
     alert("Producto creado");
 
-    onRequestClose(); // Close the modal
+    onRequestClose();
   };
 
   return (
