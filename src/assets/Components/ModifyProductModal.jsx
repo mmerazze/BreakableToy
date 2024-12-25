@@ -3,16 +3,16 @@ import Modal from 'react-modal';
 import ComboModify from "./ComboModify.jsx";
 import "./styles.css";
 
-Modal.setAppElement('#root'); // Set the app element for accessibility
+Modal.setAppElement('#root');
 
-const ModifyModal = ({ isOpen, onRequestClose, id }) => {
+const ModifyModal = ({ isOpen, onRequestClose, product }) => {
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleOptionChange = (newValue) => {
         setSelectedOption(newValue);
-        console.log('Selected option in App:', newValue); // Access the selected option here
+        console.log('Selected option in App:', newValue);
   };
   const [inputValue, setInputValue] = useState('');
   const handleInputChange = (event) => {
@@ -21,11 +21,9 @@ const ModifyModal = ({ isOpen, onRequestClose, id }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("hola");
-    // Handle product creation logic here
     let campos ={};
     campos.newString = " ";
-    campos.id = document.getElementById("id").value;
+    campos.id = product.id;
     campos.requestType = selectedOption.title;
     if(campos.requestType === 'Name'){
         campos.newString = document.getElementById("newString").value;
@@ -43,7 +41,7 @@ const ModifyModal = ({ isOpen, onRequestClose, id }) => {
 
     alert("Producto modificado");
 
-    onRequestClose(); // Close the modal
+    onRequestClose();
   };
 
   return (
@@ -58,17 +56,13 @@ const ModifyModal = ({ isOpen, onRequestClose, id }) => {
                     <p>{selectedOption.title}</p>
                     {selectedOption.title === 'Name' && (
                             <div>
-                                <p>Product ID: </p>
-                                <input type="text" id="id" className="input" onChange={handleInputChange}/>
-                              <p>New name: </p>
-                              <input type="text" id="newString" className="input" onChange={handleInputChange}/>
+                                <p>New name: </p>
+                                <input type="text" id="newString" className="input" onChange={handleInputChange}/>
                             </div>
                     )}
 
                     {selectedOption.title === 'Category' && (
                             <div>
-                              <p>Product ID: </p>
-                              <input type="text" id="id" className="input" onChange={handleInputChange}/>
                               <p>New category:</p>
                               <input type="text" id="newString" className="input" onChange={handleInputChange}/>
                             </div>
@@ -76,8 +70,6 @@ const ModifyModal = ({ isOpen, onRequestClose, id }) => {
 
                     {selectedOption.title === 'Price' && (
                             <div>
-                              <p>Product ID: </p>
-                              <input type="text" id="id" className="input" onChange={handleInputChange}/>
                               <p>New price:</p>
                               <input type="text" id="newDouble" className="input" onChange={handleInputChange}/>
                             </div>
@@ -85,8 +77,6 @@ const ModifyModal = ({ isOpen, onRequestClose, id }) => {
 
                     {selectedOption.title === 'Stock' && (
                            <div>
-                               <p>Product ID: </p>
-                               <input type="text" id="id" className="input" onChange={handleInputChange}/>
                                <p>New stock:</p>
                                <input type="text" id="newLong" className="input" onChange={handleInputChange}/>
                            </div>
@@ -94,8 +84,6 @@ const ModifyModal = ({ isOpen, onRequestClose, id }) => {
 
                     {selectedOption.title === 'Expiration Date' && (
                            <div>
-                               <p>Product ID: </p>
-                               <input type="text" id="id" className="input" onChange={handleInputChange}/>
                                <p>New expiration date: </p>
                                <input type="text" id="newDate" className="input" placeholder="YYYY-MM-DD" onChange={handleInputChange}/>
                            </div>

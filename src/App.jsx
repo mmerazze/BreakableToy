@@ -30,6 +30,8 @@ function App() {
         <ProductTable />
         <br/>
         <br/>
+        <br/>
+        <br/>
         <Metrics />
       </div>
     </>
