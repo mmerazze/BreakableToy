@@ -1,16 +1,26 @@
 import * as React from 'react';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 const availability = ['In stock', 'Out of stock', 'All'];
 
-export default function ComboAvailability() {
+const ComboAvailability = ({ value, onChange }) => {
   return (
-    <Autocomplete
-      disablePortal
-      options={availability}
-      sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Availability" />}
-    />
-  );
+          <FormControl variant="outlined" sx={{ width: '200px' }}>
+              <InputLabel id="stock-label">Search by Stock</InputLabel>
+              <Select
+                  labelId="stock-label"
+                  name="stock"
+                  value={value}
+                  onChange={onChange}
+                  label="Search by Stock"
+              >
+                  {availability.map((option) => (
+                      <MenuItem key={option} value={option}>
+                          {option}
+                      </MenuItem>
+                  ))}
+              </Select>
+          </FormControl>
+      );
 }
+export default ComboAvailability;

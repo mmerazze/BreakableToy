@@ -21,15 +21,11 @@ function App() {
     <>
     <h1 className ="title"> Products Manager</h1>
       <div>
-        <SearchProduct />
-        <br/>
         <button onClick={openModal}>Create New Product</button>
         <ProductModal isOpen={isModalOpen} onRequestClose={closeModal} />
         <br/>
         <br/>
         <ProductTable />
-        <br/>
-        <br/>
         <br/>
         <br/>
         <Metrics />

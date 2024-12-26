@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
-const categories = ['Food', 'Clothing', 'Electronics'];
-
-export default function ComboCategories() {
+const ComboCategories = ({ value, onChange}) => {
     const [rows, setRows] = useState([]);
     const fetchCategories = async () => {
           try {
@@ -24,11 +23,22 @@ export default function ComboCategories() {
             fetchCategories();
           }, []);
   return (
-    <Autocomplete
-      disablePortal
-      options={rows}
-      sx={{ width: 300 }}
-      renderInput={(params) => <TextField {...params} label="Category" />}
-    />
+    <FormControl variant="outlined" sx={{ width: '200px' }}>
+      <InputLabel id="category-label">Search by Category</InputLabel>
+      <Select
+         labelId="category-label"
+         name="category"
+         value={value}
+         onChange={onChange}
+         label="Search by Category"
+         >
+         {rows.map((category) => (
+             <MenuItem key={category} value={category}>
+                            {category}
+             </MenuItem>
+         ))}
+      </Select>
+    </FormControl>
   );
 }
+export default ComboCategories;

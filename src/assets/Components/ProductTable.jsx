@@ -4,12 +4,48 @@ import Paper from '@mui/material/Paper';
 import { Box, Button } from '@mui/material';
 import ModifyModal from "./ModifyProductModal.jsx";
 import ComboModify from "./ComboModify.jsx";
+import SearchProduct from './SearchProduct.jsx';
 
 export default function ProductTable() {
-    const [rows, setRows] = useState([]);
+        const [rows, setRows] = useState([]);
         const [loading, setLoading] = useState(true);
         const [isModalOpen, setIsModalOpen] = useState(false);
         const [selectedProduct, setSelectedProduct] = useState(null);
+        const [searchName, setSearchName] = useState('');
+        const [searchCategory, setSearchCategory] = useState('');
+        const [searchStock, setSearchStock] = useState('');
+
+        const handleSearchChange = (event) => {
+                const { name, value } = event.target;
+                if (name === 'name') {
+                    setSearchName(value);
+                } else if (name === 'category') {
+                    setSearchCategory(value);
+                } else if (name === 'stock') {
+                    setSearchStock(value);
+                }
+        };
+
+        const filteredProducts = rows.filter((row) => {
+              const matchesName = row.name.toLowerCase().includes(searchName.toLowerCase());
+              const matchesCategory = row.category.toLowerCase().includes(searchCategory.toLowerCase());
+              let matchesStock = false;
+              if (searchStock === 'In stock') {
+                  matchesStock = row.stock.toString() !== '0';
+              } else if (searchStock === 'Out of stock') {
+                  matchesStock = row.stock.toString() === '0';
+              } else {
+                  matchesStock = true;
+              }
+
+              return matchesName && matchesCategory && matchesStock;
+        });
+
+        const handleReturn = () => {
+                setSearchName('');
+                setSearchCategory('');
+                setSearchStock('');
+        };
 
         const columns = [
             { field: 'id', headerName: 'ID', width: 90 },
@@ -72,13 +108,13 @@ export default function ProductTable() {
         }, []);
 
         const openModal = (product) => {
-            setSelectedProduct(product); // Set the selected product for modification
+            setSelectedProduct(product);
             setIsModalOpen(true);
         };
 
         const closeModal = () => {
             setIsModalOpen(false);
-            setSelectedProduct(null); // Clear the selected product when closing
+            setSelectedProduct(null);
         };
 
         const handleDelete = async (id) => {
@@ -90,7 +126,6 @@ export default function ProductTable() {
                     });
                     if (response.ok) {
                         alert('Product deleted successfully');
-                        // Optionally, refresh the product list
                         fetchProducts();
                     } else {
                         alert('Failed to delete product');
@@ -102,19 +137,40 @@ export default function ProductTable() {
             }
         };
   return (
-    <Paper sx={{ height: 400, width: '100%' }}>
-                <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    loading={loading}
-                    checkboxSelection
-                    disableSelectionOnClick
-                />
-                <ModifyModal
-                    isOpen={isModalOpen}
-                    onRequestClose={closeModal}
-                    product={selectedProduct}
-                />
-            </Paper>
+    <Paper sx={{ height: 750, width: '100%' }}>
+        <div>
+        <SearchProduct
+             searchName={searchName}
+             searchCategory={searchCategory}
+             searchStock={searchStock}
+             onSearchChange={handleSearchChange}
+             onReturn={handleReturn}
+         />
+        </div>
+        <br/>
+        <div>
+        <DataGrid
+             sx={{ border: 0 }}
+             rows={filteredProducts}
+             columns={columns}
+             loading={loading}
+             initialState={{
+                pagination: {
+                   paginationModel: {
+                          pageSize: 10,
+                   },
+                },
+             }}
+             pageSizeOptions={[10]}
+             checkboxSelection
+             disableRowSelectionOnClick
+        />
+        </div>
+        <ModifyModal
+             isOpen={isModalOpen}
+             onRequestClose={closeModal}
+             product={selectedProduct}
+        />
+    </Paper>
   );
 }
