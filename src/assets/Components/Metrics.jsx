@@ -7,10 +7,10 @@ export default function Metrics() {
     const [loading, setLoading] = useState(true);
 
     const columns = [
-        { field: 'category', headerName: 'Category', width: 200 },
-        { field: 'totalStock', headerName: 'Total Stock', width: 240 },
-        { field: 'totalValue', headerName: 'Total Value', width: 240 },
-        { field: 'averagePrice', headerName: 'Average Price', width: 240 }
+        { field: 'category', headerClassName: 'super-app-theme--header', headerName: 'Category', width: 200 },
+        { field: 'totalStock', headerClassName: 'super-app-theme--header', headerName: 'Total Stock', width: 240 },
+        { field: 'totalValue', headerClassName: 'super-app-theme--header', headerName: 'Total Value', width: 240 },
+        { field: 'averagePrice', headerClassName: 'super-app-theme--header', headerName: 'Average Price', width: 240 }
     ];
 
     const fetchProducts = async () => {
@@ -41,12 +41,18 @@ export default function Metrics() {
     }, []);
 
     return (
-        <Paper sx={{ height: 400, width: '100%' }}>
+        <Paper sx={{
+            height: 400,
+            width: '100%',
+            '& .super-app-theme--header': {
+                backgroundColor: 'rgba(23, 95, 200, 0.76)',
+            },
+                }}>
             <DataGrid
                 rows={rows}
                 columns={columns}
                 loading={loading}
-                sx={{ border: 0 }}
+                sx={{ border: 0 , '& .MuiDataGrid-columnHeaders': {color: 'white',},}}
             />
         </Paper>
     );

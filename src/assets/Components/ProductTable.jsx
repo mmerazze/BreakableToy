@@ -5,6 +5,7 @@ import { Box, Button } from '@mui/material';
 import ModifyModal from "./ModifyProductModal.jsx";
 import ComboModify from "./ComboModify.jsx";
 import SearchProduct from './SearchProduct.jsx';
+import "./styles.css";
 
 export default function ProductTable() {
         const [rows, setRows] = useState([]);
@@ -48,14 +49,15 @@ export default function ProductTable() {
         };
 
         const columns = [
-            { field: 'id', headerName: 'ID', width: 90 },
-            { field: 'name', headerName: 'Name', width: 90 },
-            { field: 'category', headerName: 'Category', width: 120 },
-            { field: 'price', headerName: 'Price', width: 90 },
-            { field: 'stock', headerName: 'Stock', width: 90 },
-            { field: 'expirationDate', headerName: 'Expiration Date', width: 160 },
+            { field: 'id',headerClassName: 'super-app-theme--header', headerName: 'ID', width: 90 },
+            { field: 'name',headerClassName: 'super-app-theme--header', headerName: 'Name', width: 90 },
+            { field: 'category',headerClassName: 'super-app-theme--header', headerName: 'Category', width: 120 },
+            { field: 'price',headerClassName: 'super-app-theme--header', headerName: 'Price', width: 90 },
+            { field: 'stock',headerClassName: 'super-app-theme--header', headerName: 'Stock', width: 90 },
+            { field: 'expirationDate',headerClassName: 'super-app-theme--header', headerName: 'Expiration Date', width: 160 },
             {
                 field: 'actions',
+                headerClassName: 'super-app-theme--header',
                 headerName: 'Actions',
                 width: 200,
                 renderCell: (params) => (
@@ -136,8 +138,38 @@ export default function ProductTable() {
                 }
             }
         };
+
+    const [selectedRows, setSelectedRows] = useState([]);
+
+    const handleRowSelection = (newSelection) => {
+            setSelectedRows(newSelection);
+    };
+
+    const getRowClassName = (params) => {
+            for (const id of selectedRows) {
+                    const campos = {
+                        id: id,
+                        newLong: 0,
+                        requestType: "Stock"
+                    };
+                const response = fetch("http://localhost:8080/products/updateProduct", {
+                                method: 'PUT',
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify(campos)
+                            });
+            };
+            fetchProducts();
+            return selectedRows.includes(params.id) ? 'selected-row' : '';
+    };
+
   return (
-    <Paper sx={{ height: 750, width: '100%' }}>
+    <Paper sx={{
+        height: 750,
+        width: '100%' ,
+        '& .super-app-theme--header': {
+             backgroundColor: 'rgba(23, 95, 200, 0.76)',
+        },
+    }}>
         <div>
         <SearchProduct
              searchName={searchName}
@@ -150,7 +182,12 @@ export default function ProductTable() {
         <br/>
         <div>
         <DataGrid
-             sx={{ border: 0 }}
+             sx={{
+                 border: 0 ,
+                 '& .MuiDataGrid-columnHeaders': {
+                     color: 'white',
+                 },
+             }}
              rows={filteredProducts}
              columns={columns}
              loading={loading}
@@ -164,6 +201,8 @@ export default function ProductTable() {
              pageSizeOptions={[10]}
              checkboxSelection
              disableRowSelectionOnClick
+             onRowSelectionModelChange={handleRowSelection}
+             getRowClassName={getRowClassName}
         />
         </div>
         <ModifyModal

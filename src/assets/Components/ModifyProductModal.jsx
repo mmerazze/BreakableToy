@@ -15,6 +15,7 @@ const ModifyModal = ({ isOpen, onRequestClose, product }) => {
         console.log('Selected option in App:', newValue);
   };
   const [inputValue, setInputValue] = useState('');
+
   const handleInputChange = (event) => {
       setInputValue(event.target.value);
     };

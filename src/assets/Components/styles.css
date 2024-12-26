@@ -10,3 +10,6 @@
   max-width: 500px;
   width: 100%;
 }
+.selected-row {
+    color: red;
+}
