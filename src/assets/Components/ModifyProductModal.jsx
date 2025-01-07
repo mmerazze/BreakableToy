@@ -39,7 +39,6 @@ const ModifyModal = ({ isOpen, onRequestClose, product }) => {
             method: 'PUT',
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(campos) });
-
     alert("Producto modificado");
 
     onRequestClose();
